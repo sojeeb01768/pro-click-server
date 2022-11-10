@@ -40,6 +40,14 @@ async function run() {
             const service = await serviceCollection.findOne(query);
             res.send(service);
 
+            // service api 
+
+            app.post('/services',async(req,res)=>{
+                const service = req.body;
+                const result =await serviceCollection.insertOne(service);
+                res.send(result)
+            });
+
             // review api
             app.get('/reviews', async (req, res) => {
 
@@ -52,7 +60,8 @@ async function run() {
                 const cursor = reviewCollection.find(query);
                 const reviews = await cursor.toArray();
                 res.send(reviews);
-            })
+            });
+
 
             app.get('/reviews', async (req, res) => {
                 let query = {};
