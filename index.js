@@ -42,9 +42,9 @@ async function run() {
 
             // service api 
 
-            app.post('/services',async(req,res)=>{
+            app.post('/all', async (req, res) => {
                 const service = req.body;
-                const result =await serviceCollection.insertOne(service);
+                const result = await serviceCollection.insertOne(service);
                 res.send(result)
             });
 
@@ -70,7 +70,7 @@ async function run() {
                         service: req.query.service
                     }
                 }
-                const cursor = reviewCollection.find(query)
+                const cursor = reviewCollection.find(query).sort({ "_id": -1 })
                 const reviews = await cursor.toArray();
                 res.send(reviews)
             });
